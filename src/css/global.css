@@ -10,5 +10,12 @@ body {
 }
 
 body, button, input, textarea {
-    font: 1rem 400 'Roboto', sans-serif;
+    font: 400 1rem 'Roboto', sans-serif;
+}
+
+button, a {
+    cursor: pointer;
+    border: none;
+    background: none;
+    text-decoration: none;
 }
