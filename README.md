@@ -28,7 +28,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 <!-- <h4> Acesse em: https://nlw6-letmeask-marcelino.vercel.app </h4> -->
 
-O LetMeAsk é um aplicativo para organização de perguntas durante lives, feito durante o evento `Next Level Week 6`, da [Rocketseat](https://github.com/rocketseat-education).
+O LetMeAsk é um aplicativo para organização de perguntas e respostas durante lives, feito durante o evento `Next Level Week 6`, da [Rocketseat](https://github.com/rocketseat-education).
 
 <!-- ## 🚀 Funcionalidades que adicionei após o evento
 
