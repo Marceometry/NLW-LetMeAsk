@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="LetMeAsk" src="public/logo.svg">
+  <img alt="LetMeAsk" src="public/logo.svg" style="background: #fff; padding: 20px 10px 10px 10px; border-radius: 5px">
 </h1>
 
 <p align="center">
