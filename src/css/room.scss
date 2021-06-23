@@ -59,7 +59,26 @@
                 align-items: center;
                 justify-content: space-between;
 
-                span {
+                .user-info {
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        border: 1px solid #29292e;
+                    }
+
+                    span {
+                        margin-left: 8px;
+                        color: #29292e;
+                        font-weight: 500;
+                        font-size: 14px;
+                    }
+                }
+
+                > span {
                     font-size: 14px;
                     color: #737388;
                     font-weight: 500;
