@@ -11,11 +11,11 @@ body {
 
 body, button, input, textarea {
     font: 400 1rem 'Roboto', sans-serif;
+    border: none;
 }
 
 button, a {
     cursor: pointer;
-    border: none;
     background: none;
     text-decoration: none;
 }
