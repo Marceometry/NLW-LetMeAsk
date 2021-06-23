@@ -26,20 +26,18 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-<!-- <h4> Acesse em: https://nlw6-letmeask-marcelino.vercel.app </h4> -->
+<h4> Acesse em: https://nlw6-let-me-ask.vercel.app/ </h4>
 
 O LetMeAsk é um aplicativo para organização de perguntas e respostas durante lives, utilizando o Firebase para autenticação e banco de dados, feito durante o evento `Next Level Week 6`, da [Rocketseat](https://github.com/rocketseat-education).
 
 <!-- ## 🚀 Funcionalidades que adicionei após o evento
 
 - Dark theme
-- Landing page
-- Responsividade
-- Animações de loading utilizando o [Nprogress](https://ricostacruz.com/nprogress/) -->
+- Responsividade -->
 
 ## 🔖 Layout
 
-Você pode visualizar o layout do projeto através [desse link](https://www.figma.com/file/XK49PlcYIA5R0dvWvALIPS/Podcastr-NLW-5). É necessário ter conta no [Figma](http://figma.com/) para acessá-lo.
+Você pode visualizar o layout do projeto através [desse link](https://www.figma.com/file/GLf2gn6jHd5u2xScZGroLW/LetMeAsk-NLW-6-ReactJS). É necessário ter conta no [Figma](http://figma.com/) para acessá-lo.
 
 ## 🚀 Como executar
 
@@ -47,7 +45,7 @@ Você pode visualizar o layout do projeto através [desse link](https://www.figm
 - Instale as dependências com `yarn`
 - Inicie o servidor com `yarn dev`
 
-Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navegador, logar com seu github e utilizar sua própria base de dados.
+Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navegador.
 
 ---
 
