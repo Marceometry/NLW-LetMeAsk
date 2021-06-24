@@ -46,6 +46,11 @@
             }
         }
 
+> div {
+display: flex;
+gap: 16px;
+}
+
         .like-button {
             display: flex;
             align-items: flex-end;
