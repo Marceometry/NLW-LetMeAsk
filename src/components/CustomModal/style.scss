@@ -1,0 +1,57 @@
+.ReactModal__Overlay {
+    background: rgba(0, 0, 0, .8) !important;
+}
+
+.ReactModal__Content {
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin-right: -50% !important;
+    transform: translate(-50%, -50%) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    
+    padding: 64px 122px !important;;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    h2 {
+        font-family: 'Poppins', sans-serif;
+        margin: 24px 0 12px;
+    }
+
+    p {
+        color: #737380;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 24px;
+
+        button {
+            margin-top: 40px;
+            border-radius: 8px;
+            padding: 14px 32px;
+            background: #DBDCDD;
+            color: #737380;
+            transition-property: color, border, background;
+            transition-duration: .2s;
+
+            &:hover {
+                background: #cccdce;
+            }
+
+            &.confirm {
+                color: #fff;
+                background: #E73F5D;
+
+                &:hover {
+                    background: #db1b3e;
+                }
+            }
+        }
+    }
+}

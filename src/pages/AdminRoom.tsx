@@ -1,14 +1,17 @@
-import { useHistory, useParams } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { database } from '../services/firebase'
+import { useAuth } from '../contexts/AuthContext'
 import { useRoom } from '../hooks/useRoom'
+import toast, { Toaster } from 'react-hot-toast'
 
 import { Button } from '../components/Button'
 import { RoomCode } from '../components/RoomCode'
 import { Question } from '../components/Question'
+import { CustomModal } from '../components/CustomModal'
 
-import { useAuth } from '../contexts/AuthContext'
 import logoImg from '../assets/images/logo.svg'
+import dangerImg from '../assets/images/danger.svg'
 import emptyQuestionsImg from '../assets/images/empty-questions.svg'
 import '../css/room.scss'
 
@@ -18,6 +21,8 @@ type RoomParams = {
 
 export function AdminRoom() {
     const [isPermissionLoading, setIsPermissionLoading] = useState(true)
+    const [isCloseRoomModalOpen, setIsCloseRoomModalOpen] = useState(false)
+    const [isDeleteQuestionModalOpen, setIsDeleteQuestionModalOpen] = useState(false)
     const params = useParams<RoomParams>()
     const history = useHistory()
     const roomId = params.id
@@ -46,31 +51,55 @@ export function AdminRoom() {
 
     if (isPermissionLoading || isRoomLoading) return <div className="loaderContainer loaderScreen"><div className="loader"></div></div>
 
-    async function handleEndRoom() {
-        if (window.confirm('Are you sure you want to end this room?')) {
-            await database.ref(`rooms/${roomId}`).update({
-                closedAt: new Date()
-            })
+    async function handleCloseRoom() {
+        const closedRoom = database.ref(`rooms/${roomId}`).update({
+            closedAt: new Date()
+        })
 
-            history.push("/")
-        }
+        await toast.promise(closedRoom, {
+            loading: 'Carregando...',
+            success: 'Sala encerrada com sucesso :)',
+            error: 'Algo deu errado no encerramento da sala :,(',
+        })
+
+        history.push("/")
     }
 
     async function handleDeleteQuestion(questionId: string) {
         if (window.confirm('Are you sure you want to delete?')) {
-            await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
+            const deletedQuestion = database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
+            toast.promise(deletedQuestion, {
+                loading: 'Carregando...',
+                success: 'Pergunta excluída com sucesso :)',
+                error: 'Algo deu errado na exclusão da pergunta :,(',
+            })
         }
     }
 
     return (
         <div id="page-room">
+            <Toaster />
             <header>
                 <div className="content">
-                    <img src={logoImg} alt="LetMeAsk" />
+                    <Link to="/">
+                        <img src={logoImg} alt="LetMeAsk" />
+                    </Link>
 
                     <div>
                         <RoomCode code={roomId} />
-                        <Button onClick={handleEndRoom} isOutlined>Encerrar sala</Button>
+                        <Button onClick={() => setIsCloseRoomModalOpen(true)} isOutlined>Encerrar sala</Button>
+
+                        <CustomModal
+                            isOpen={isCloseRoomModalOpen}
+                            setIsOpen={setIsCloseRoomModalOpen}
+                            imgSrc={dangerImg}
+                            contentLabel="Encerrar sala"
+                            title="Encerrar sala"
+                            description="Tem certeza de que você deseja encerrar esta sala?"
+                        >
+                            <button onClick={() => setIsCloseRoomModalOpen(false)}>Cancelar</button>
+                            <button onClick={handleCloseRoom} className="confirm" >Encerrar</button>
+                        </CustomModal>
                     </div>
                 </div>
             </header>

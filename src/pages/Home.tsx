@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { database } from '../services/firebase'
 import { useAuth } from '../contexts/AuthContext'
+import toast, { Toaster } from 'react-hot-toast'
 import { Button } from '../components/Button'
 
 import illustrationImg from '../assets/images/illustration.svg'
@@ -34,7 +35,7 @@ export function Home() {
         const roomRef = await database.ref(`rooms/${roomCode}`).get()
 
         if (!roomRef.exists()) {
-            alert('Esta sala não foi encontrada.')
+            toast.error('Esta sala não foi encontrada.')
             if (button) {
                 button.innerHTML = 'Entrar na sala'
             }
@@ -42,7 +43,7 @@ export function Home() {
         }
 
         if (roomRef.val().closedAt) {
-            alert('Esta sala já fechou.')
+            toast.error('Esta sala já fechou.')
             if (button) {
                 button.innerHTML = 'Entrar na sala'
             }
@@ -54,6 +55,7 @@ export function Home() {
 
     return (
         <div id="page-auth">
+            <Toaster />
             <aside>
                 <img src={illustrationImg} alt="Ilustração de perguntas e respostas" />
                 <strong>Crie salas de Q&amp;A ao vivo</strong>

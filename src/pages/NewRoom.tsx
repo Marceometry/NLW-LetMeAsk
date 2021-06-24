@@ -1,12 +1,14 @@
 import { Link, useHistory } from 'react-router-dom'
 import { FormEvent, useState } from 'react'
+import { database } from '../services/firebase'
+import { useAuth } from '../contexts/AuthContext'
+import toast, { Toaster } from 'react-hot-toast'
 import { Button } from '../components/Button'
+
 import illustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
 
 import '../css/auth.scss'
-import { database } from '../services/firebase'
-import { useAuth } from '../contexts/AuthContext'
 
 export function NewRoom() {
     const { signInWithGoogle, user } = useAuth()
@@ -40,7 +42,7 @@ export function NewRoom() {
         if (firebaseRoom.key) {
             history.push(`/admin/rooms/${firebaseRoom.key}`)
         } else {
-            alert('Algo deu errado na criação da sala.')
+            toast.error('Algo deu errado na criação da sala.')
             if (button) {
                 button.innerHTML = 'Criar sala'
             }
@@ -49,6 +51,7 @@ export function NewRoom() {
 
     return (
         <div id="page-auth">
+            <Toaster />
             <aside>
                 <img src={illustrationImg} alt="Ilustração de perguntas e respostas" />
                 <strong>Crie salas de Q&amp;A ao vivo</strong>

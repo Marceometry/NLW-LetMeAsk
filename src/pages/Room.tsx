@@ -1,8 +1,9 @@
 import { FormEvent, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useRoom } from '../hooks/useRoom'
 import { database } from '../services/firebase'
+import toast, { Toaster } from 'react-hot-toast'
 
 import { Button } from '../components/Button'
 import { RoomCode } from '../components/RoomCode'
@@ -34,7 +35,8 @@ export function Room() {
 
         if (newQuestion.trim() === '') return
         if (!user) {
-            throw new Error('Você precisa estar logado.')
+            toast.error('Você precisa estar logado.')
+            return
         }
 
         const question = {
@@ -48,6 +50,8 @@ export function Room() {
         }
 
         await database.ref(`rooms/${roomId}/questions`).push(question)
+
+        toast.success('Pergunta enviada com sucesso :)')
 
         setNewQuestion('')
     }
@@ -66,9 +70,12 @@ export function Room() {
 
     return (
         <div id="page-room">
+            <Toaster />
             <header>
                 <div className="content">
-                    <img src={logoImg} alt="LetMeAsk" />
+                    <Link to="/">
+                        <img src={logoImg} alt="LetMeAsk" />
+                    </Link>
 
                     <RoomCode code={roomId} />
                 </div>
@@ -98,7 +105,7 @@ export function Room() {
                             <span>Para enviar uma pergunta, <button onClick={handleSignIn}>faça seu login</button>.</span>
                         )}
                         
-                        <Button type="submit" disabled={!user} >Enviar pergunta</Button>
+                        <Button type="submit" disabled={!user || !newQuestion} >Enviar pergunta</Button>
                     </div>
                 </form>
 
