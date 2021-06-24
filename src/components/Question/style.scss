@@ -35,6 +35,16 @@
                 font-size: 14px;
             }
         }
+        
+        .delete-question {
+            svg path {
+                transition: stroke .2s;
+            }
+    
+            &:hover svg path {
+                stroke: #E73F5D;
+            }
+        }
 
         .like-button {
             display: flex;

@@ -9,7 +9,7 @@ import { database } from '../services/firebase'
 import { useAuth } from '../contexts/AuthContext'
 
 export function NewRoom() {
-    const { user } = useAuth()
+    const { signInWithGoogle, user } = useAuth()
     const history = useHistory()
     const [newRoom, setNewRoom] = useState('')
 
@@ -18,13 +18,33 @@ export function NewRoom() {
 
         if (newRoom.trim() === '') return
 
+        const button = document.querySelector('form button')
+        if (button) {
+            button.innerHTML = 'Carregando...'
+        }
+
+        if (!user) {
+            await signInWithGoogle()
+            if (button) {
+                button.innerHTML = 'Criar sala'
+            }
+            return
+        }
+
         const roomRef = database.ref('rooms')
         const firebaseRoom = await roomRef.push({
             title: newRoom.trim(),
-            authorId: user?.id,
+            authorId: user.id,
         })
 
-        history.push(`/admin/rooms/${firebaseRoom.key}`)
+        if (firebaseRoom.key) {
+            history.push(`/admin/rooms/${firebaseRoom.key}`)
+        } else {
+            alert('Algo deu errado na criação da sala.')
+            if (button) {
+                button.innerHTML = 'Criar sala'
+            }
+        }
     }
 
     return (

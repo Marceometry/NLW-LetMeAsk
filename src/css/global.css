@@ -19,3 +19,12 @@ button, a {
     background: none;
     text-decoration: none;
 }
+
+.loader {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

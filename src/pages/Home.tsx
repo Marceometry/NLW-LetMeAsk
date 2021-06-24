@@ -27,10 +27,18 @@ export function Home() {
 
         if (roomCode.trim() === '') return
 
+        const button = document.querySelector('form button')
+        if (button) {
+            button.innerHTML = 'Carregando...'
+        }
+
         const roomRef = await database.ref(`rooms/${roomCode}`).get()
 
         if (!roomRef.exists()) {
             alert('Esta sala não foi encontrada.')
+            if (button) {
+                button.innerHTML = 'Entrar na sala'
+            }
             return
         }
 
