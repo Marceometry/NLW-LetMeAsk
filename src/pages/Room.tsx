@@ -50,7 +50,7 @@ export function Room() {
         } else if (likeId) {
             await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove()
         } else {
-            const newLike = await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
+            await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
                 authorId: user.id,
             })
         }
