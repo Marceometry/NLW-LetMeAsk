@@ -37,8 +37,6 @@ export function AdminRoom() {
 
             const authorId = roomRef.val().authorId
 
-            console.log(authorId + "\n" + user?.id)
-
             if (authorId !== user?.id) {
                 history.replace(`/rooms/${roomId}`)
             } else {

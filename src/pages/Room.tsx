@@ -21,10 +21,14 @@ export function Room() {
     const [newQuestion, setNewQuestion] = useState('')
     const params = useParams<RoomParams>()
     const roomId = params.id
-    const { questions, title, isRoomLoading } = useRoom(roomId)
+    const { questions, title, isRoomLoading, isClosed, roomNotFound } = useRoom(roomId)
     const { signInWithGoogle, user } = useAuth()
 
     if (isRoomLoading) return <div className="loaderContainer loaderScreen"><div className="loader"></div></div>
+
+    if (roomNotFound) return <div className="loaderContainer loaderScreen"><h2>Desculpe, essa sala não foi encontrada :,(</h2></div>
+
+    if (isClosed) return <div className="loaderContainer loaderScreen"><h2>Desculpe, essa sala foi encerrada :,(</h2></div>
 
     async function handleSignIn() {
         !user && await signInWithGoogle()

@@ -31,8 +31,10 @@ type FirebaseQuestions = Record<string, {
 
 export function useRoom(roomId: string) {
     const [questions, setQuestions] = useState<QuestionType[]>([])
-    const [isRoomLoading, setisRoomLoading] = useState(true)
+    const [isRoomLoading, setIsRoomLoading] = useState(true)
+    const [roomNotFound, setRoomNotFound] = useState(false)
     const [title, setTitle] = useState('')
+    const [isClosed, setIsClosed] = useState(false)
     const { user } = useAuth()
 
     useEffect(() => {
@@ -40,6 +42,13 @@ export function useRoom(roomId: string) {
 
         roomRef.on('value', room => {
             const databaseRoom = room.val()
+
+            if (!databaseRoom) {
+                setRoomNotFound(true)
+                setIsRoomLoading(false)
+                return
+            }
+            
             const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {}
 
             const parsetQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
@@ -54,9 +63,10 @@ export function useRoom(roomId: string) {
                 }
             })
 
+            setIsClosed(databaseRoom.closedAt)
             setTitle(databaseRoom.title)
             setQuestions(parsetQuestions)
-            setisRoomLoading(false)
+            setIsRoomLoading(false)
         })
 
         return () => {
@@ -64,5 +74,5 @@ export function useRoom(roomId: string) {
         }
     }, [roomId, user?.id])
 
-    return { questions, title, isRoomLoading }
+    return { questions, title, isRoomLoading, isClosed, roomNotFound }
 }

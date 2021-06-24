@@ -14,7 +14,7 @@ import '../css/auth.scss'
 export function Home() {
     const history = useHistory()
     const { signInWithGoogle, user } = useAuth()
-    const [roomCode, setRoomCode] = useState('-McvkL-0awdhEJV4NFHS')
+    const [roomCode, setRoomCode] = useState('')
 
     async function handleCreateRoom() {
         !user && await signInWithGoogle()
