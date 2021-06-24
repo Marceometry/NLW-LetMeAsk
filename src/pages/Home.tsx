@@ -1,5 +1,6 @@
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { database } from '../services/firebase'
 import { useAuth } from '../contexts/AuthContext'
 import { Button } from '../components/Button'
 
@@ -8,13 +9,11 @@ import logoImg from '../assets/images/logo.svg'
 import googleIconImg from '../assets/images/google-icon.svg'
 
 import '../css/auth.scss'
-import { useState } from 'react'
-import { database } from '../services/firebase'
 
 export function Home() {
     const history = useHistory()
     const { signInWithGoogle, user } = useAuth()
-    const [roomCode, setRoomCode] = useState('')
+    const [roomCode, setRoomCode] = useState('-McvkL-0awdhEJV4NFHS')
 
     async function handleCreateRoom() {
         !user && await signInWithGoogle()
@@ -44,6 +43,9 @@ export function Home() {
 
         if (roomRef.val().closedAt) {
             alert('Esta sala já fechou.')
+            if (button) {
+                button.innerHTML = 'Entrar na sala'
+            }
             return
         }
 

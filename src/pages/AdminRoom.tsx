@@ -17,26 +17,34 @@ type RoomParams = {
 }
 
 export function AdminRoom() {
-    const [isLoading, setIsLoading] = useState(true)
+    const [isPermissionLoading, setIsPermissionLoading] = useState(true)
     const params = useParams<RoomParams>()
     const history = useHistory()
     const roomId = params.id
-    const { questions, title } = useRoom(roomId)
-    const { user } = useAuth()
+    const { questions, title, isRoomLoading } = useRoom(roomId)
+    const { user, isUserLoading } = useAuth()
 
     useEffect(() => {
         async function getAuthorId() {
+            if (!user) { return history.replace(`/rooms/${roomId}`) }
+
             const roomRef = await database.ref(`rooms/${roomId}`).get()
 
             const authorId = roomRef.val().authorId
 
+            console.log(authorId + "\n" + user?.id)
+
             if (authorId !== user?.id) {
                 history.replace(`/rooms/${roomId}`)
             } else {
-                setIsLoading(false)
+                setIsPermissionLoading(false)
             }
-        } getAuthorId()
-    }, [roomId])
+        }
+        
+        if (!isUserLoading) getAuthorId()
+    }, [roomId, user, history, isUserLoading])
+
+    if (isPermissionLoading || isRoomLoading) return <div className="loaderContainer loaderScreen"><div className="loader"></div></div>
 
     async function handleEndRoom() {
         if (window.confirm('Are you sure you want to end this room?')) {
@@ -53,8 +61,6 @@ export function AdminRoom() {
             await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
         }
     }
-
-    if (isLoading) return <div className="loader"><h2>Carregando...</h2></div>
 
     return (
         <div id="page-room">

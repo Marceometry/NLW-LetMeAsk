@@ -15,6 +15,7 @@ type User = {
 
 type AuthContextType = {
     user: User | undefined
+    isUserLoading: boolean
     signInWithGoogle: () => Promise<void>
 }
 
@@ -25,15 +26,19 @@ type AuthContextProviderProps = {
 export const AuthContext = createContext({} as AuthContextType)
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
+    const [isUserLoading, setIsUserLoading] = useState(true)
     const [user, setUser] = useState<User>()
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-            user && setUserInfo(user)
+            if (user) {
+                setUserInfo(user)
+            }
         })
 
         return () => {
             unsubscribe()
+            setIsUserLoading(false)
         }
     }, [])
     
@@ -57,10 +62,12 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
             name: displayName,
             avatar: photoURL
         })
+        
+        setIsUserLoading(false)
     }
 
     return (
-        <AuthContext.Provider value={{signInWithGoogle, user}}>
+        <AuthContext.Provider value={{signInWithGoogle, user, isUserLoading}}>
             { children }
         </AuthContext.Provider>
     )

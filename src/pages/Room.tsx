@@ -20,8 +20,10 @@ export function Room() {
     const [newQuestion, setNewQuestion] = useState('')
     const params = useParams<RoomParams>()
     const roomId = params.id
-    const { questions, title } = useRoom(roomId)
+    const { questions, title, isRoomLoading } = useRoom(roomId)
     const { signInWithGoogle, user } = useAuth()
+
+    if (isRoomLoading) return <div className="loaderContainer loaderScreen"><div className="loader"></div></div>
 
     async function handleSignIn() {
         !user && await signInWithGoogle()
