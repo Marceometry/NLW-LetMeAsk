@@ -60,6 +60,14 @@
                 &:hover {
                     background: var(--red-dark);
                 }
+
+                &.green {
+                    background: var(--green);
+
+                    &:hover {
+                        background: var(--green-dark);
+                    }
+                }
             }
         }
     }

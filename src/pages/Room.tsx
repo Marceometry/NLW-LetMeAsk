@@ -136,7 +136,7 @@ export function Room() {
               description="Entrar como administrador? Você precisa estar logado com a conta que criou esta sala."
             >
               <button onClick={() => setEnterAsAdminModal('')}>Cancelar</button>
-              <button onClick={handleEnterAsAdmin} className="confirm" >Entrar</button>
+              <button onClick={handleEnterAsAdmin} className="confirm green" >Entrar</button>
             </CustomModal>
 
             {user && (
