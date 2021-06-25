@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from "react"
+import toast from "react-hot-toast"
 import { firebase, auth } from "../services/firebase"
 
 type UserFromGoogle = {
@@ -16,6 +17,7 @@ type User = {
 type AuthContextType = {
     user: User | undefined
     isUserLoading: boolean
+    signOut: () => void
     signInWithGoogle: () => Promise<void>
 }
 
@@ -51,6 +53,12 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         result.user && setUserInfo(result.user)
     }
 
+    function signOut() {
+        auth.signOut()
+        setUser(undefined)
+        toast.success('Você se deslogou')
+    }
+
     function setUserInfo(user: UserFromGoogle) {
         const { displayName, photoURL, uid } = user
 
@@ -68,7 +76,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{signInWithGoogle, user, isUserLoading}}>
+        <AuthContext.Provider value={{signInWithGoogle, user, isUserLoading, signOut}}>
             { children }
         </AuthContext.Provider>
     )
