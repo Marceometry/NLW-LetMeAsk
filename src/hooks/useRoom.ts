@@ -2,6 +2,11 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { database } from "../services/firebase"
 
+type Admin = {
+    id: string
+    name: string
+    avatar: string
+}
 
 type QuestionType = {
     id: string
@@ -33,8 +38,9 @@ export function useRoom(roomId: string) {
     const [questions, setQuestions] = useState<QuestionType[]>([])
     const [isRoomLoading, setIsRoomLoading] = useState(true)
     const [roomNotFound, setRoomNotFound] = useState(false)
-    const [title, setTitle] = useState('')
     const [isClosed, setIsClosed] = useState(false)
+    const [title, setTitle] = useState('')
+    const [admin, setAdmin] = useState({} as Admin)
     const { user } = useAuth()
 
     useEffect(() => {
@@ -65,6 +71,7 @@ export function useRoom(roomId: string) {
 
             setIsClosed(databaseRoom.closedAt)
             setTitle(databaseRoom.title)
+            setAdmin(databaseRoom.admin)
             setQuestions(parsetQuestions)
             setIsRoomLoading(false)
         })
@@ -74,5 +81,5 @@ export function useRoom(roomId: string) {
         }
     }, [roomId, user?.id])
 
-    return { questions, title, isRoomLoading, isClosed, roomNotFound }
+    return { questions, title, admin, isRoomLoading, isClosed, roomNotFound }
 }

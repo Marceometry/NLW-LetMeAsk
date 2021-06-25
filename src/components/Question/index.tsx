@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { UserInfo } from '../UserInfo'
 import './style.scss'
 
 type QuestionProps = {
@@ -17,10 +18,7 @@ export function Question({ content, author, isAnswered = false, isHighlighted = 
         <div className={`question ${isAnswered ? 'answered' : ''} ${isHighlighted && !isAnswered ? 'highlighted' : ''}`}>
             <p>{ content }</p>
             <footer>
-                <div className="user-info">
-                    <img src={author.avatar} alt={author.name} />
-                    <span>{author.name}</span>
-                </div>
+                <UserInfo name={author.name} avatar={author.avatar} />
                 <div>{children}</div>
             </footer>
         </div>

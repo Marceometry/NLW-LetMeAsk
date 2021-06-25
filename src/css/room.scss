@@ -64,24 +64,33 @@
         max-width: 800px;
         margin: 0 auto;
 
-        .room-title {
+        .room-header {
             margin: 2rem 0 1.5rem;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: .5rem;
 
             h1 {
                 font-size: 1.5rem;
                 color: var(--black);
             }
 
-            span {
-                margin-left: 1rem;
-                background: var(--pink);
-                color: var(--white);
-                font-weight: 500;
-                font-size: .875rem;
-                border-radius: 25px;
-                padding: .5rem 1rem;
+            > div {
+                display: flex;
+                gap: 1rem;
+      
+                span {
+                    color: var(--black);
+                }
+    
+                > span {
+                    background: var(--pink);
+                    color: var(--white);
+                    font-weight: 500;
+                    font-size: .75rem;
+                    border-radius: 25px;
+                    padding: .5rem 1rem;
+                }
             }
         }
 
@@ -104,21 +113,9 @@
                 justify-content: space-between;
 
                 .user-info {
-                    display: flex;
-                    align-items: center;
-
-                    img {
-                        width: 2rem;
-                        height: 2rem;
-                        border-radius: 50%;
-                        border: 1px solid var(--black);
-                    }
-
                     span {
-                        margin-left: .5rem;
                         color: var(--black);
                         font-weight: 500;
-                        font-size: .875rem;
                     }
                 }
 

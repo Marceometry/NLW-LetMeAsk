@@ -45,7 +45,7 @@ export function NewRoom() {
         const roomRef = database.ref('rooms')
         const firebaseRoom = await roomRef.push({
             title: newRoom.trim(),
-            authorId: user.id,
+            admin: user,
         })
 
         if (firebaseRoom.key) {

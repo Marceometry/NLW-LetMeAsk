@@ -9,6 +9,8 @@ import { Button } from '../components/Button'
 import { RoomCode } from '../components/RoomCode'
 import { Question } from '../components/Question'
 import { CustomModal } from '../components/CustomModal'
+import { Header } from '../components/Header'
+import { UserInfo } from '../components/UserInfo'
 
 import logoImg from '../assets/images/logo.svg'
 import adminImg from '../assets/images/admin.svg'
@@ -16,7 +18,6 @@ import signOutImg from '../assets/images/sign-out.svg'
 import emptyQuestionsImg from '../assets/images/empty-questions.svg'
 
 import '../css/room.scss'
-import { Header } from '../components/Header'
 
 type RoomParams = {
   id: string
@@ -29,7 +30,7 @@ export function Room() {
   const history = useHistory()
   const params = useParams<RoomParams>()
   const roomId = params.id
-  const { questions, title, isRoomLoading, isClosed, roomNotFound } = useRoom(roomId)
+  const { questions, title, admin, isRoomLoading, isClosed, roomNotFound } = useRoom(roomId)
   const { signInWithGoogle, signOut, user } = useAuth()
 
   if (isRoomLoading) return (
@@ -67,11 +68,7 @@ export function Room() {
 
     setEnterAsAdminModal('')
 
-    const roomRef = await database.ref(`rooms/${roomId}`).get()
-
-    const authorId = roomRef.val().authorId
-
-    if (authorId !== user.id) {
+    if (admin.id !== user.id) {
       toast.error('Você precisa estar logado na conta que criou esta sala.')
     } else {
       history.push(`/admin/rooms/${roomId}`)
@@ -127,7 +124,7 @@ export function Room() {
             </Link>
 
             <button aria-label="Entrar como administrador" title="Entrar como administrador" disabled={!user} onClick={() => setEnterAsAdminModal('1')}>
-              <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24" /></g><g><g><path d="M17,11c0.34,0,0.67,0.04,1,0.09V6.27L10.5,3L3,6.27v4.91c0,4.54,3.2,8.79,7.5,9.82c0.55-0.13,1.08-0.32,1.6-0.55 C11.41,19.47,11,18.28,11,17C11,13.69,13.69,11,17,11z" /><path d="M17,13c-2.21,0-4,1.79-4,4c0,2.21,1.79,4,4,4s4-1.79,4-4C21,14.79,19.21,13,17,13z M17,14.38c0.62,0,1.12,0.51,1.12,1.12 s-0.51,1.12-1.12,1.12s-1.12-0.51-1.12-1.12S16.38,14.38,17,14.38z M17,19.75c-0.93,0-1.74-0.46-2.24-1.17 c0.05-0.72,1.51-1.08,2.24-1.08s2.19,0.36,2.24,1.08C18.74,19.29,17.93,19.75,17,19.75z" /></g></g></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24" /></g><g><g><path d="M17,11c0.34,0,0.67,0.04,1,0.09V6.27L10.5,3L3,6.27v4.91c0,4.54,3.2,8.79,7.5,9.82c0.55-0.13,1.08-0.32,1.6-0.55 C11.41,19.47,11,18.28,11,17C11,13.69,13.69,11,17,11z" /><path d="M17,13c-2.21,0-4,1.79-4,4c0,2.21,1.79,4,4,4s4-1.79,4-4C21,14.79,19.21,13,17,13z M17,14.38c0.62,0,1.12,0.51,1.12,1.12 s-0.51,1.12-1.12,1.12s-1.12-0.51-1.12-1.12S16.38,14.38,17,14.38z M17,19.75c-0.93,0-1.74-0.46-2.24-1.17 c0.05-0.72,1.51-1.08,2.24-1.08s2.19,0.36,2.24,1.08C18.74,19.29,17.93,19.75,17,19.75z" /></g></g></svg>
             </button>
             <CustomModal
               isOpen={enterAsAdminModal}
@@ -168,9 +165,13 @@ export function Room() {
       </header>
 
       <main>
-        <div className="room-title">
+        <div className="room-header">
           <h1>Sala: {title}</h1>
-          {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
+
+          <div>
+            <UserInfo name={admin.name} avatar={admin.avatar} />
+            {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
+          </div>
         </div>
 
         <form onSubmit={handleSendQuestion}>
@@ -183,10 +184,7 @@ export function Room() {
 
           <div className="form-footer">
             {user ? (
-              <div className="user-info">
-                <img src={user.avatar} alt={user.name} />
-                <span>{user.name}</span>
-              </div>
+              <UserInfo name={user.name} avatar={user.avatar} />
             ) : (
               <span>Para enviar uma pergunta, <button onClick={handleSignIn}>faça seu login</button>.</span>
             )}

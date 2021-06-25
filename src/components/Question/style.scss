@@ -50,23 +50,6 @@
         align-items: center;
         justify-content: space-between;
 
-        .user-info {
-            display: flex;
-            align-items: center;
-
-            img {
-                width: 2rem;
-                height: 2rem;
-                border-radius: 50%;
-            }
-
-            span {
-                margin-left: .5rem;
-                color: var(--gray-25);
-                font-size: .875rem;
-            }
-        }
-
         > div:not(.user-info) {
             display: flex;
             gap: 1rem;
