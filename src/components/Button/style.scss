@@ -1,7 +1,7 @@
 .button {
-    height: 50px;
-    padding: 0 32px;
-    border-radius: 8px;
+    height: 3.125rem;
+    padding: 0 2rem;
+    border-radius: .5rem;
     
     background: #835afd;
     color: #fff;
@@ -13,7 +13,7 @@
     justify-content: center;
 
     img {
-        margin-right: 16px;
+        margin-right: 1rem;
     }
 
     &.outlined {

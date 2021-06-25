@@ -12,7 +12,7 @@ export function RoomCode({ code }: RoomCodeProps) {
         toast.success('Código copiado com sucesso :)', {
             position: 'bottom-center',
             style: {
-                marginBottom: '48px'
+                marginBottom: '4.5rem'
             }
         })
     }

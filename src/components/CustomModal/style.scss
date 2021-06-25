@@ -10,9 +10,9 @@
     margin-right: -50% !important;
     transform: translate(-50%, -50%) !important;
     border: none !important;
-    border-radius: 8px !important;
+    border-radius: .5rem !important;
     
-    padding: 64px 122px !important;;
+    padding: 4rem 7.625rem !important;;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,7 +20,7 @@
 
     h2 {
         font-family: 'Poppins', sans-serif;
-        margin: 24px 0 12px;
+        margin: 1.5rem 0 .75rem;
     }
 
     p {
@@ -29,12 +29,12 @@
 
     .buttons {
         display: flex;
-        gap: 24px;
+        gap: 1.5rem;
 
         button {
-            margin-top: 40px;
-            border-radius: 8px;
-            padding: 14px 32px;
+            margin-top: 2.5rem;
+            border-radius: .5rem;
+            padding: .875rem 2rem;
             background: #DBDCDD;
             color: #737380;
             transition-property: color, border, background;

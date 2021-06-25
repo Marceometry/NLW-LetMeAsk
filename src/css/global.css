@@ -42,8 +42,8 @@ button, a {
   display: block;
   z-index: 1031;
 
-  width: 64px;
-  height: 64px;
+  width: 4rem;
+  height: 4rem;
   box-sizing: border-box;
 
   border: solid 2px transparent;
