@@ -1,6 +1,6 @@
 .question {
     padding: 1.5rem;
-    background: #fefefe;
+    background: var(--gray-500);
     border-radius: .5rem;
     box-shadow: 0 2px 12px #0000000a;
 
@@ -9,26 +9,26 @@
     }
 
     &.highlighted {
-        background: #f4f0ff;
-        border: 1px solid #835afd;
+        background: var(--highlighted);
+        border: 1px solid var(--purple);
 
         footer .user-info span {
-            color: #29292e;
+            color: var(--black);
         }
     }
 
     &.answered {
-        background: #DBDCDD;
+        background: var(--gray-200);
 
         .answer-question {
             svg {
                 path, circle {
-                    stroke: #2cb342;
+                    stroke: var(--green);
                 }
 
                 &:hover {
                     path, circle {
-                        stroke: #E73F5D;
+                        stroke: var(--red);
                     }
                 }
             }
@@ -36,7 +36,7 @@
     }
 
     p {
-        color: #29292e;
+        color: var(--black);
     }
 
     footer {
@@ -53,12 +53,12 @@
                 width: 2rem;
                 height: 2rem;
                 border-radius: 50%;
-                border: 1px solid #29292e;
+                border: 1px solid var(--black);
             }
 
             span {
                 margin-left: .5rem;
-                color: #737380;
+                color: var(--gray-25);
                 font-size: .875rem;
             }
         }
@@ -75,16 +75,16 @@
 
         .answer-question:hover svg {
             path, circle {
-                stroke: #2cb342;
+                stroke: var(--green);
             }
         }
 
         .highlight-question:hover svg path {
-            stroke: #835afd;
+            stroke: var(--purple);
         }
         
         .delete-question:hover svg path {
-            stroke: #E73F5D !important;
+            stroke: var(--red) !important;
         }
 
         .like-button {
@@ -92,13 +92,13 @@
             align-items: flex-end;
             cursor: default;
             gap: .5rem;
-            color: #737380;
+            color: var(--gray-25);
 
             &.liked {
-                color: #835afd;
+                color: var(--purple);
 
                 svg path {
-                    stroke: #835afd;
+                    stroke: var(--purple);
                 }
             }
 

@@ -24,7 +24,7 @@
     }
 
     p {
-        color: #737380;
+        color: var(--gray-25);
     }
 
     .buttons {
@@ -35,21 +35,21 @@
             margin-top: 2.5rem;
             border-radius: .5rem;
             padding: .875rem 2rem;
-            background: #DBDCDD;
-            color: #737380;
+            background: var(--gray-200);
+            color: var(--gray-25);
             transition-property: color, border, background;
             transition-duration: .2s;
 
             &:hover {
-                background: #cccdce;
+                background: var(--gray-100);
             }
 
             &.confirm {
-                color: #fff;
-                background: #E73F5D;
+                color: var(--white);
+                background: var(--red);
 
                 &:hover {
-                    background: #db1b3e;
+                    background: var(--red-dark);
                 }
             }
         }
