@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="LetMeAsk" src="public/logo.svg">
+  <img alt="LetMeAsk" src="scr/assets/images/logo.svg">
 </h1>
 
 <p align="center">
@@ -20,7 +20,6 @@
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - [React](https://reactjs.org)
-- [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Sass](https://sass-lang.com/)
 - [Firebase](https://firebase.google.com/)
@@ -29,7 +28,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 <h4> Acesse em: https://nlw6-let-me-ask.vercel.app/ </h4>
 
-O LetMeAsk é um aplicativo para organização de perguntas e respostas durante lives, utilizando o [Firebase](https://firebase.google.com/) para autenticação e banco de dados, feito durante o evento `Next Level Week 6`, da [Rocketseat](https://github.com/rocketseat-education).
+O LetMeAsk é um aplicativo para a realização de perguntas em tempo real durante lives, utilizando o [Firebase](https://firebase.google.com/) para autenticação e banco de dados, feito durante o evento `Next Level Week 6`, da [Rocketseat](https://github.com/rocketseat-education).
 
 ## 🚀 Funcionalidades que adicionei além do evento
 
@@ -48,8 +47,13 @@ Você pode visualizar o layout do projeto através [desse link](https://www.figm
 ## 🚀 Como executar
 
 - Clone o repositório
+- Crie um projeto no [Firebase](https://firebase.google.com/)
+- Na aba `Authentication`, ative a autenticação com o Google
+- Crie um banco de dados com o Realtime Database
+- Registre seu projeto como um app Web, na aba Visão Geral do Projeto
+- Preencha as variáveis ambiente com os dados do seu projeto, de acordo com o arquivo `.env.example`
 - Instale as dependências com `yarn`
-- Inicie o servidor com `yarn dev`
+- Inicie o servidor com `yarn start`
 
 Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navegador.
 
