@@ -58,11 +58,14 @@ export function Room() {
   }
 
   function handleSignOut() {
+    setSignOutModal('')
     signOut()
   }
 
   async function handleEnterAsAdmin() {
-    if (!user) { return }
+    if (!user) return
+
+    setEnterAsAdminModal('')
 
     const roomRef = await database.ref(`rooms/${roomId}`).get()
 

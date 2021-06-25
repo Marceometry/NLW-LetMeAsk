@@ -88,7 +88,7 @@ export function AdminRoom() {
       isAnswered: !isAnswered
     })
 
-    toast.promise(deletedQuestion, {
+    await toast.promise(deletedQuestion, {
       loading: 'Carregando...',
       success: `Pergunta ${isAnswered ? 'des' : ''}marcada${!isAnswered ? ' como respondida' : ''} :)`,
       error: `Algo deu errado :,(`,
@@ -100,7 +100,7 @@ export function AdminRoom() {
       isHighlighted: !isHighlighted
     })
 
-    toast.promise(highlightQuestion, {
+    await toast.promise(highlightQuestion, {
       loading: 'Carregando...',
       success: `${isHighlighted ? 'Destaque removido' : 'Pergunta destacada'} :)`,
       error: `Algo deu errado :,(`,
@@ -109,8 +109,10 @@ export function AdminRoom() {
 
   async function handleDeleteQuestion(questionId: string) {
     setDeleteQuestionModalId('')
+    
     const deleteQuestion = database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
-    toast.promise(deleteQuestion, {
+    
+    await toast.promise(deleteQuestion, {
       loading: 'Carregando...',
       success: 'Pergunta excluída com sucesso :)',
       error: 'Algo deu errado :,(',

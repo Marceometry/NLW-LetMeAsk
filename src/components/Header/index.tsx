@@ -5,11 +5,9 @@ import "./style.scss"
 export function Header() {
   return (
     <header className="empty-header">
-      <div className="content">
-        <Link to="/">
-          <img src={logoImg} alt="LetMeAsk" />
-        </Link>
-      </div>
+      <Link to="/">
+        <img src={logoImg} alt="LetMeAsk" />
+      </Link>
     </header>
   );
 }
