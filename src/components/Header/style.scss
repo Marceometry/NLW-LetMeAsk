@@ -2,11 +2,16 @@
     padding: 1.5rem;
     border-bottom: 1px solid var(--gray-200);
     display: flex;
-    justify-content: center;
     position: absolute;
     right: 0;
     left: 0;
     z-index: 10;
+
+    .content {
+        width: 100%;
+        max-width: 1120px;
+        margin: 0 auto;
+    }
     
     img {
         max-height: 45px;
