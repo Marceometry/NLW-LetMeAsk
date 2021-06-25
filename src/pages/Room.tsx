@@ -16,6 +16,7 @@ import signOutImg from '../assets/images/sign-out.svg'
 import emptyQuestionsImg from '../assets/images/empty-questions.svg'
 
 import '../css/room.scss'
+import { Header } from '../components/Header'
 
 type RoomParams = {
   id: string
@@ -31,11 +32,26 @@ export function Room() {
   const { questions, title, isRoomLoading, isClosed, roomNotFound } = useRoom(roomId)
   const { signInWithGoogle, signOut, user } = useAuth()
 
-  if (isRoomLoading) return <div className="loaderContainer loaderScreen"><div className="loader"></div></div>
+  if (isRoomLoading) return (
+    <>
+    <Header />
+    <div className="loaderContainer"><div className="loader"></div></div>
+    </>
+  )
 
-  if (roomNotFound) return <div className="loaderContainer loaderScreen"><h2>Desculpe, essa sala não foi encontrada :,(</h2></div>
+  if (roomNotFound) return (
+    <>
+    <Header />
+    <div className="loaderContainer"><h2>Desculpe, essa sala não foi encontrada :,(</h2></div>
+    </>
+  )
 
-  if (isClosed) return <div className="loaderContainer loaderScreen"><h2>Desculpe, essa sala foi encerrada :,(</h2></div>
+  if (isClosed) return (
+    <>
+    <Header />
+    <div className="loaderContainer"><h2>Desculpe, essa sala foi encerrada :,(</h2></div>
+    </>
+  )
 
   async function handleSignIn() {
     !user && await signInWithGoogle()

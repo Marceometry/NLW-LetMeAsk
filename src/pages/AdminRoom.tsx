@@ -9,6 +9,7 @@ import { Button } from '../components/Button'
 import { RoomCode } from '../components/RoomCode'
 import { Question } from '../components/Question'
 import { CustomModal } from '../components/CustomModal'
+import { Header } from '../components/Header'
 
 import logoImg from '../assets/images/logo.svg'
 import adminImg from '../assets/images/admin.svg'
@@ -53,7 +54,12 @@ export function AdminRoom() {
     if (!isUserLoading) getAuthorId()
   }, [roomId, user, history, isUserLoading])
 
-  if (isPermissionLoading || isRoomLoading) return <div className="loaderContainer loaderScreen"><div className="loader"></div></div>
+  if (isPermissionLoading || isRoomLoading) return (
+    <>
+    <Header />
+    <div className="loaderContainer"><div className="loader"></div></div>
+    </>
+  )
 
   function handleEnterAsCommonUser() {
     history.push(`/rooms/${roomId}`)
