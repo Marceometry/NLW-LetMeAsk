@@ -36,9 +36,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
             }
         })
 
+        setIsUserLoading(false)
+        
         return () => {
             unsubscribe()
-            setIsUserLoading(false)
         }
     }, [])
     
