@@ -33,10 +33,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
                 setUserInfo(user)
+            } else {
+                setIsUserLoading(false)
             }
         })
-
-        setIsUserLoading(false)
         
         return () => {
             unsubscribe()
