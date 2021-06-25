@@ -50,7 +50,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         
         const result = await auth.signInWithPopup(provider)
         
-        result.user && setUserInfo(result.user)
+        if (result.user) {
+            setUserInfo(result.user)
+            toast.success(`Tudo certo, ${result.user.displayName}!`)
+        }
     }
 
     function signOut() {
@@ -63,6 +66,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         const { displayName, photoURL, uid } = user
 
         if (!displayName || !photoURL || !uid) {
+            toast.error('Algo deu errado :,(')
             throw new Error('Missing information from Google Account.')
         }
 
@@ -71,7 +75,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
             name: displayName,
             avatar: photoURL
         })
-        
+
         setIsUserLoading(false)
     }
 
