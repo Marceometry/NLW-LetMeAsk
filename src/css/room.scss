@@ -12,8 +12,41 @@
             align-items: center;
             justify-content: space-between;
 
-            a img {
-                max-height: 45px;
+            .left-header-div {
+                button {
+                    font-size: 0;
+
+                    svg {
+                        width: 2rem;
+                        height: 2rem;
+                        fill: var(--black);
+                        transition: fill .2s;
+                    }
+
+                    &:hover svg {
+                        fill: var(--purple);
+                    }
+                    
+                    &.sign-out-button:hover svg {
+                        fill: var(--red);
+                    }
+
+                    &:disabled {
+                        cursor: not-allowed;
+
+                        svg {
+                            fill: var(--gray-50)
+                        }
+                    }
+                }
+            }
+
+            a {
+                margin-right: 1rem;
+
+                img {
+                    max-height: 45px;
+                }
             }
 
             div {

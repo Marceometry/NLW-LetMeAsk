@@ -35,6 +35,24 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        .home-sign-out-button {
+            font-size: 0;
+            position: absolute;
+            right: 4rem;
+            top: 3rem;
+
+            svg {
+                width: 2rem;
+                height: 2rem;
+                fill: var(--black);
+                transition: fill .2s;
+            }
+            
+            &:hover svg {
+                fill: var(--red);
+            }
+        }
     }
 
     .main-content  {

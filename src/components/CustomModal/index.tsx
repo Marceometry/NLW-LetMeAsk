@@ -5,22 +5,22 @@ import './style.scss'
 Modal.setAppElement('#root')
 
 type ModalProps = {
-  id: string
   isOpen: string
   setIsOpen: (value: string) => void
   contentLabel: string
   imgSrc: string
+  imgSize?: string
   title: string
   description: string
   children: ReactNode
 }
 
 export function CustomModal({
-  id,
   isOpen,
   setIsOpen,
   contentLabel,
   imgSrc,
+  imgSize,
   title,
   description,
   children
@@ -28,12 +28,12 @@ export function CustomModal({
 
   return (
     <Modal
-      isOpen={id === isOpen}
+      isOpen={isOpen ? true : false}
       // onAfterOpen={afterOpenModal}
       onRequestClose={() => setIsOpen('')}
       contentLabel={contentLabel}
     >
-      <img src={imgSrc} alt="Ícone de exclusão" />
+      <img src={imgSrc} alt="Ícone de exclusão" style={imgSize ? {width: imgSize, height: imgSize} : {}} />
 
       <h2>{title}</h2>
       <p>{description}</p>

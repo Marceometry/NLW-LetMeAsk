@@ -70,30 +70,30 @@ export function Home() {
             </aside>
 
             <main>
+                {user && (
+                    <>
+                    <button aria-label="Deslogar" title="Deslogar" onClick={() => setSignOutModal(user.id)} className="home-sign-out-button">
+                        Botão provisório para deslogar
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#fff"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                    </button>
+
+                    <CustomModal
+                        isOpen={signOutModal}
+                        setIsOpen={setSignOutModal}
+                        imgSrc={signOutImg}
+                        imgSize={'3rem'}
+                        contentLabel="Deslogar"
+                        title="Deslogar"
+                        description="Tem certeza de que você deseja se deslogar agora?"
+                    >
+                        <button onClick={() => setSignOutModal('')}>Cancelar</button>
+                        <button onClick={handleSignOut} className="confirm" >Deslogar</button>
+                </CustomModal>
+                    </>
+                )}
+
                 <div className="main-content">
                     <img src={logoImg} alt="LetMeAsk" />
-
-                    {user && (
-                        <>
-                        <Button onClick={() => setSignOutModal(user.id)} style={{gap: '.5rem', margin: '2rem 0 -2rem'}}>
-                            Botão provisório para deslogar
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#fff"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
-                        </Button>
-
-                        <CustomModal
-                            id={user.id}
-                            isOpen={signOutModal}
-                            setIsOpen={setSignOutModal}
-                            imgSrc={signOutImg}
-                            contentLabel="Deslogar"
-                            title="Deslogar"
-                            description="Tem certeza de que você deseja se deslogar agora?"
-                        >
-                            <button onClick={() => setSignOutModal('')}>Cancelar</button>
-                            <button onClick={handleSignOut} className="confirm" >Deslogar</button>
-                      </CustomModal>
-                        </>
-                    )}
 
                     <button onClick={handleCreateRoom} className="create-room">
                         <img src={googleIconImg} alt="Logo do Google" />
