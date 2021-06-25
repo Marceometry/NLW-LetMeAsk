@@ -32,6 +32,7 @@ export function CustomModal({
       // onAfterOpen={afterOpenModal}
       onRequestClose={() => setIsOpen('')}
       contentLabel={contentLabel}
+      closeTimeoutMS={200}
     >
       <img src={imgSrc} alt="Ícone de exclusão" style={imgSize ? {width: imgSize, height: imgSize} : {}} />
 

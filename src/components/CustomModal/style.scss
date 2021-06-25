@@ -1,5 +1,15 @@
 .ReactModal__Overlay {
     background: rgba(0, 0, 0, .8) !important;
+    opacity: 0;
+    transition: opacity .2s;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
 }
 
 .ReactModal__Content {
