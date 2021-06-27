@@ -1,12 +1,13 @@
 :root {
-  --white: #fff;
+  --white: #ffffff;
   --black: #29292e;
+  --gray-10: #535353;
   --gray-25: #737380;
   --gray-50: #a8a8b3;
-  --gray-100: #cccdce;
-  --gray-200: #DBDCDD;
-  --gray-500: #fefefe;
-  --gray-1000: #f8f8f8;
+  --gray-100: #DBDCDD;
+  --gray-200: #fefefe;
+  --background: #f8f8f8;
+  --answered: #DBDCDD;
   --highlighted: #f4f0ff;
   --purple: #835afd;
   --pink: #e559f9;
@@ -24,13 +25,19 @@
 }
 
 body {
-  background: var(--gray-1000);
+  background: var(--background);
   color: var(--black);
+  transition: background .2s;
 }
 
 body, button, input, textarea {
   font: 400 1rem "Roboto", sans-serif;
+  color: var(--black);
   border: none;
+}
+
+::placeholder {
+  color: var(--gray-25);
 }
 
 button, a {
@@ -41,6 +48,15 @@ button, a {
 
 h1, h2 {
   font-family: 'Poppins', sans-serif;
+}
+
+.hot-toasts {
+  background: var(--white);
+  color: var(--black);
+
+  > div:last-child {
+    margin: 0 0 0 8px !important;
+  }
 }
 
 

@@ -2,20 +2,23 @@ import { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { database } from '../services/firebase'
 import { useAuth } from '../contexts/AuthContext'
+import { useTheme } from '../contexts/ThemeContext'
 import toast, { Toaster } from 'react-hot-toast'
+
 import { Button } from '../components/Button'
+import { CustomModal } from '../components/CustomModal'
+import { ToggleThemeButton } from '../components/ToggleThemeButton'
 
 import illustrationImg from '../assets/images/illustration.svg'
 import googleIconImg from '../assets/images/google-icon.svg'
-import signOutImg from '../assets/images/sign-out.svg'
 import logoImg from '../assets/images/logo.svg'
 
 import '../css/auth.scss'
-import { CustomModal } from '../components/CustomModal'
 
 export function Home() {
     const history = useHistory()
     const { signInWithGoogle, user, signOut } = useAuth()
+    const { theme, toggleTheme } = useTheme()
     const [roomCode, setRoomCode] = useState('')
     const [signOutModal, setSignOutModal] = useState('')
 
@@ -62,7 +65,9 @@ export function Home() {
 
     return (
         <div id="page-auth">
-            <Toaster />
+            <Toaster toastOptions={{
+                className: 'hot-toasts'
+            }} />
             <aside>
                 <img src={illustrationImg} alt="Ilustração de perguntas e respostas" />
                 <strong>Crie salas de Q&amp;A ao vivo</strong>
@@ -70,24 +75,32 @@ export function Home() {
             </aside>
 
             <main>
+                <ToggleThemeButton className="up-button toggle-theme-button" currentTheme={theme} onClick={toggleTheme} />
+                
                 {user && (
                     <>
-                    <button aria-label="Deslogar" title="Deslogar" onClick={() => setSignOutModal(user.id)} className="home-sign-out-button">
-                        Botão provisório para deslogar
+                    <button
+                        aria-label="Deslogar"
+                        title="Deslogar" onClick={() => setSignOutModal(user.id)}
+                        className="up-button home-sign-out-button"
+                    >
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#fff"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
                     </button>
 
                     <CustomModal
                         isOpen={signOutModal}
                         setIsOpen={setSignOutModal}
-                        imgSrc={signOutImg}
-                        imgSize={'3rem'}
                         contentLabel="Deslogar"
-                        title="Deslogar"
-                        description="Tem certeza de que você deseja se deslogar agora?"
                     >
-                        <button onClick={() => setSignOutModal('')}>Cancelar</button>
-                        <button onClick={handleSignOut} className="confirm" >Deslogar</button>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#fff"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+
+                        <h2>Deslogar</h2>
+                        <p>Tem certeza de que você deseja se deslogar agora?</p>
+
+                        <div className="buttons">
+                            <button onClick={() => setSignOutModal('')}>Cancelar</button>
+                            <button onClick={handleSignOut} className="confirm" >Deslogar</button>
+                        </div>
                 </CustomModal>
                     </>
                 )}

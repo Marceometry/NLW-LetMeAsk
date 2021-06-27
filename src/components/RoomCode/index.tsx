@@ -27,7 +27,9 @@ export function RoomCode({ code }: RoomCodeProps) {
             <span>Código: {code}</span>
 
         </button>
-        <Toaster />
+        <Toaster toastOptions={{
+            className: 'hot-toasts'
+        }} />
         </>
     )
 }

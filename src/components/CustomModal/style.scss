@@ -21,12 +21,19 @@
     transform: translate(-50%, -50%) !important;
     border: none !important;
     border-radius: .5rem !important;
+    background: var(--white) !important;
     
     padding: 4rem 7.625rem !important;;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    svg {
+        width: 3rem;
+        height: 3rem;
+        fill: var(--black);
+    }
 
     h2 {
         margin: 1.5rem 0 .75rem;
@@ -44,18 +51,21 @@
             margin-top: 2.5rem;
             border-radius: .5rem;
             padding: .875rem 2rem;
-            background: var(--gray-200);
-            color: var(--gray-25);
+            background: var(--gray-100);
+            border: 1px solid var(--gray-100);
+            color: var(--gray-10);
             transition-property: color, border, background;
             transition-duration: .2s;
 
             &:hover {
-                background: var(--gray-100);
+                background: var(--gray-200);
+                border: 1px solid var(--gray-50);
             }
 
             &.confirm {
                 color: var(--white);
                 background: var(--red);
+                border: 1px solid var(--red);
 
                 &:hover {
                     background: var(--red-dark);
@@ -63,6 +73,7 @@
 
                 &.green {
                     background: var(--green);
+                    border: 1px solid var(--green);
 
                     &:hover {
                         background: var(--green-dark);

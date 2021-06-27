@@ -4,6 +4,7 @@ type Theme = 'light' | 'dark'
 
 type ThemeContextType = {
     theme: Theme
+    toggleTheme: () => void
 }
 
 type ThemeContextProviderProps = {
@@ -14,17 +15,61 @@ export const ThemeContext = createContext({} as ThemeContextType)
 
 export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
     const [currentTheme, setCurrentTheme] = useState(() => {
-        const stogaredTheme = localStorage.getItem('theme')
+        const storagedTheme = localStorage.getItem('theme')
 
-        return (stogaredTheme ?? 'light') as Theme
+        return (storagedTheme ?? 'light') as Theme
     })
+
+    useEffect(() => {
+        if (currentTheme === 'dark') {
+            setDarkTheme()
+        }
+    }, [])
 
     useEffect(() => {
         localStorage.setItem('theme', currentTheme)
     }, [currentTheme])
 
+    function toggleTheme() {
+        currentTheme === 'light' ? (
+            setDarkTheme()
+        ) : (
+            setLightTheme()
+        )
+    }
+
+    function setDarkTheme() {
+        const root = document.documentElement.style
+        setCurrentTheme('dark')
+        root.setProperty('--white', '#181818')
+        root.setProperty('--black', '#f4f0ff')
+        root.setProperty('--gray-10', '#DBDCDD')
+        root.setProperty('--gray-25', '#8f8f9b')
+        root.setProperty('--gray-50', '#737380')
+        root.setProperty('--gray-100', '#626262')
+        root.setProperty('--gray-200', '#484848')
+        root.setProperty('--background', '#29292e')
+        root.setProperty('--answered', '#333333')
+        root.setProperty('--highlighted', '#524f5c')
+    }
+
+    function setLightTheme() {
+        const root = document.documentElement.style
+        setCurrentTheme('light')
+        root.setProperty('--white', '#ffffff')
+        root.setProperty('--black', '#29292e')
+        root.setProperty('--gray-25', '#737380')
+        root.setProperty('--gray-50', '#a8a8b3')
+        root.setProperty('--gray-100', '#cccdce')
+        root.setProperty('--gray-100', '#DBDCDD')
+        root.setProperty('--gray-200', '#fefefe')
+        root.setProperty('--background', '#f8f8f8')
+        root.setProperty('--answered', '#DBDCDD')
+        root.setProperty('--highlighted', '#f4f0ff')
+    }
+
     return (
-        <ThemeContext.Provider value={{theme: currentTheme}}>
+        <ThemeContext.Provider value={{theme: currentTheme, toggleTheme}}>
             { children }
         </ThemeContext.Provider>
     )

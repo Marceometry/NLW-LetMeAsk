@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useRoom } from '../hooks/useRoom'
+import { useTheme } from '../contexts/ThemeContext'
 import { database } from '../services/firebase'
 import toast, { Toaster } from 'react-hot-toast'
 
@@ -11,10 +12,9 @@ import { Question } from '../components/Question'
 import { CustomModal } from '../components/CustomModal'
 import { Header } from '../components/Header'
 import { UserInfo } from '../components/UserInfo'
+import { ToggleThemeButton } from '../components/ToggleThemeButton'
 
 import logoImg from '../assets/images/logo.svg'
-import adminImg from '../assets/images/admin.svg'
-import signOutImg from '../assets/images/sign-out.svg'
 import emptyQuestionsImg from '../assets/images/empty-questions.svg'
 
 import '../css/room.scss'
@@ -32,6 +32,7 @@ export function Room() {
   const roomId = params.id
   const { questions, title, admin, isRoomLoading, isClosed, roomNotFound } = useRoom(roomId)
   const { signInWithGoogle, signOut, user } = useAuth()
+  const { theme, toggleTheme } = useTheme()
 
   if (isRoomLoading) return (
     <>
@@ -115,7 +116,9 @@ export function Room() {
 
   return (
     <div id="page-room">
-      <Toaster />
+      <Toaster toastOptions={{
+          className: 'hot-toasts'
+      }} />
       <header>
         <div className="content">
           <div className="left-header-div">
@@ -123,20 +126,25 @@ export function Room() {
               <img src={logoImg} alt="LetMeAsk" />
             </Link>
 
+            <ToggleThemeButton currentTheme={theme} onClick={toggleTheme} />
+
             <button aria-label="Entrar como administrador" title="Entrar como administrador" disabled={!user} onClick={() => setEnterAsAdminModal('1')}>
               <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24" /></g><g><g><path d="M17,11c0.34,0,0.67,0.04,1,0.09V6.27L10.5,3L3,6.27v4.91c0,4.54,3.2,8.79,7.5,9.82c0.55-0.13,1.08-0.32,1.6-0.55 C11.41,19.47,11,18.28,11,17C11,13.69,13.69,11,17,11z" /><path d="M17,13c-2.21,0-4,1.79-4,4c0,2.21,1.79,4,4,4s4-1.79,4-4C21,14.79,19.21,13,17,13z M17,14.38c0.62,0,1.12,0.51,1.12,1.12 s-0.51,1.12-1.12,1.12s-1.12-0.51-1.12-1.12S16.38,14.38,17,14.38z M17,19.75c-0.93,0-1.74-0.46-2.24-1.17 c0.05-0.72,1.51-1.08,2.24-1.08s2.19,0.36,2.24,1.08C18.74,19.29,17.93,19.75,17,19.75z" /></g></g></svg>
             </button>
             <CustomModal
               isOpen={enterAsAdminModal}
               setIsOpen={setEnterAsAdminModal}
-              imgSrc={adminImg}
-              imgSize={'3rem'}
               contentLabel="Entrar como administrador"
-              title="Entrar como administrador"
-              description="Entrar como administrador? Você precisa estar logado com a conta que criou esta sala."
             >
-              <button onClick={() => setEnterAsAdminModal('')}>Cancelar</button>
-              <button onClick={handleEnterAsAdmin} className="confirm green" >Entrar</button>
+              <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24" /></g><g><g><path d="M17,11c0.34,0,0.67,0.04,1,0.09V6.27L10.5,3L3,6.27v4.91c0,4.54,3.2,8.79,7.5,9.82c0.55-0.13,1.08-0.32,1.6-0.55 C11.41,19.47,11,18.28,11,17C11,13.69,13.69,11,17,11z" /><path d="M17,13c-2.21,0-4,1.79-4,4c0,2.21,1.79,4,4,4s4-1.79,4-4C21,14.79,19.21,13,17,13z M17,14.38c0.62,0,1.12,0.51,1.12,1.12 s-0.51,1.12-1.12,1.12s-1.12-0.51-1.12-1.12S16.38,14.38,17,14.38z M17,19.75c-0.93,0-1.74-0.46-2.24-1.17 c0.05-0.72,1.51-1.08,2.24-1.08s2.19,0.36,2.24,1.08C18.74,19.29,17.93,19.75,17,19.75z" /></g></g></svg>
+        
+              <h2>Entrar como administrador</h2>
+              <p>Entrar como administrador? Você precisa estar logado com a conta que criou esta sala.</p>
+        
+              <div className="buttons">
+                <button onClick={() => setEnterAsAdminModal('')}>Cancelar</button>
+                <button onClick={handleEnterAsAdmin} className="confirm green" >Entrar</button>
+              </div>
             </CustomModal>
 
             {user && (
@@ -147,14 +155,17 @@ export function Room() {
               <CustomModal
                 isOpen={signOutModal}
                 setIsOpen={setSignOutModal}
-                imgSrc={signOutImg}
-                imgSize={'3rem'}
                 contentLabel="Deslogar"
-                title="Deslogar"
-                description="Tem certeza de que você deseja se deslogar agora?"
-              >
-                <button onClick={() => setSignOutModal('')}>Cancelar</button>
-                <button onClick={handleSignOut} className="confirm" >Deslogar</button>
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none" /><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" /></svg>
+
+                <h2>Deslogar</h2>
+                <p>Tem certeza de que você deseja se deslogar agora?</p>
+
+                <div className="buttons">
+                    <button onClick={() => setSignOutModal('')}>Cancelar</button>
+                    <button onClick={handleSignOut} className="confirm" >Deslogar</button>
+                </div>
               </CustomModal>
               </>
             )}

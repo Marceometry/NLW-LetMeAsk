@@ -3,7 +3,7 @@
 
     header {
         padding: 1.5rem;
-        border-bottom: 1px solid var(--gray-200);
+        border-bottom: 1px solid var(--gray-100);
 
         .content {
             max-width: 1120px;
@@ -49,9 +49,9 @@
                 }
             }
 
-            div {
+            > div {
                 display: flex;
-                gap: 1rem;
+                gap: 2rem;
 
                 button {
                     height: 2.5rem;
@@ -85,7 +85,7 @@
     
                 > span {
                     background: var(--pink);
-                    color: var(--white);
+                    color: #f4f0ff;
                     font-weight: 500;
                     font-size: .75rem;
                     border-radius: 25px;
@@ -99,7 +99,7 @@
                 width: 100%;
                 padding: 1rem;
                 border-radius: .5rem;
-                background: var(--gray-500);
+                background: var(--gray-200);
                 box-shadow: 0 2px 12px #0000000a;
                 resize: vertical;
                 min-height: 8.125rem;
