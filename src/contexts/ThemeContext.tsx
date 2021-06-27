@@ -56,6 +56,7 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
         const root = document.documentElement.style
         root.setProperty('--white', '#ffffff')
         root.setProperty('--black', '#29292e')
+        root.setProperty('--gray-10', '#535353')
         root.setProperty('--gray-25', '#737380')
         root.setProperty('--gray-50', '#a8a8b3')
         root.setProperty('--gray-100', '#cccdce')
