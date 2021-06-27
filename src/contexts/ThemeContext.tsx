@@ -21,26 +21,28 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
     })
 
     useEffect(() => {
-        if (currentTheme === 'dark') {
-            setDarkTheme()
-        }
     }, [])
 
     useEffect(() => {
         localStorage.setItem('theme', currentTheme)
+        
+        if (currentTheme === 'dark') {
+            setDarkTheme()
+        } else {
+            setLightTheme()
+        }
     }, [currentTheme])
 
     function toggleTheme() {
         currentTheme === 'light' ? (
-            setDarkTheme()
+            setCurrentTheme('dark')
         ) : (
-            setLightTheme()
+            setCurrentTheme('light')
         )
     }
 
     function setDarkTheme() {
         const root = document.documentElement.style
-        setCurrentTheme('dark')
         root.setProperty('--white', '#181818')
         root.setProperty('--black', '#f4f0ff')
         root.setProperty('--gray-10', '#DBDCDD')
@@ -55,7 +57,6 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
 
     function setLightTheme() {
         const root = document.documentElement.style
-        setCurrentTheme('light')
         root.setProperty('--white', '#ffffff')
         root.setProperty('--black', '#29292e')
         root.setProperty('--gray-25', '#737380')
