@@ -171,16 +171,16 @@
 
 // mobile
 
-// @media(max-width: 768px) {
-//     #page-room {
-//         header {
-//             .content {
-//                 .left-header-div {
-//                     > div {
-//                         gap: 1rem;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
+@media(max-width: 768px) {
+    #page-room {
+        header {
+            .content {
+                .left-header-div {
+                    > div {
+                        gap: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
