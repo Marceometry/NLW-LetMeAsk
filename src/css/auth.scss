@@ -164,3 +164,65 @@
         }
     }
 }
+
+// mobile
+
+@media(min-height: 110vw) {
+    #page-auth {
+        flex-direction: column;
+
+        aside {
+            max-height: 80vh;
+            padding: 4rem 3rem;
+            align-items: center;
+        }
+
+        main {
+            margin-top: 2rem;
+            padding-bottom: 3.5rem;
+
+            .up-button {
+                top: 0;
+            }
+        }
+    }
+}
+
+@media(max-width: 768px) {
+    #page-auth {
+        flex-direction: column;
+
+        aside {
+            align-items: center;
+
+            img {
+                max-height: 60%;
+            }
+
+            strong {
+                font-size: 1.75rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+
+        main {
+            margin-top: 2rem;
+            padding-bottom: 3.5rem;
+
+            .up-button {
+                top: 0;
+            }
+
+            .toggle-theme-button {
+                left: 2rem;
+            }
+    
+            .home-sign-out-button {
+                right: 2rem;
+            }
+        }
+    }
+}

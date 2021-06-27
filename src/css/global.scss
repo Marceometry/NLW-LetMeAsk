@@ -135,3 +135,16 @@ h1, h2 {
     transform: rotate(360deg);
   }
 }
+
+/* responsive fonts */
+@media(max-width: 1080px) {
+  html {
+      font-size: 93.75%;
+  }
+}
+
+@media(max-width: 768px) {
+  html {
+      font-size: 87.5%;
+  }
+}
