@@ -32,8 +32,8 @@ O LetMeAsk é um aplicativo para a realização de perguntas em tempo real duran
 
 ## 🚀 Funcionalidades que adicionei além do evento
 
-<!-- - Dark theme
-- Responsividade -->
+- Dark theme
+- Responsividade
 - `Regras de negócio no Front-End`: permitir acesso à página de admin somente ao criador da sala, não permitir que usuários não-logados consigam enviar perguntas, dentre outras verificações.
 - `React Hot Toasts`: PopUps sucintos com aparência agradável para informar o usuário informações relevantes.
 - `React Modal`: Modais de confirmação claros e com boas práticas de acessibilidade.
