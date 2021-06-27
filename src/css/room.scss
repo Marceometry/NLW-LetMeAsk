@@ -150,6 +150,8 @@
 
         .empty-questions {
             margin-top: 4rem;
+            padding-bottom: 3rem;
+            text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -181,6 +183,15 @@
                     }
                 }
             }
+        }
+    }
+}
+
+@media(max-width: 600px) {
+    #page-room {
+        header .content {
+            flex-direction: column;
+            gap: 2rem;
         }
     }
 }
