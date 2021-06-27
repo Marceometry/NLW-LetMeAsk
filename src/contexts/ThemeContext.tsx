@@ -19,10 +19,7 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
 
         return (storagedTheme ?? 'light') as Theme
     })
-
-    useEffect(() => {
-    }, [])
-
+    
     useEffect(() => {
         localStorage.setItem('theme', currentTheme)
         
