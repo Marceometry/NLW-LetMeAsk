@@ -123,7 +123,6 @@ export function AdminRoom() {
           className: 'hot-toasts'
       }} />
       <header>
-      <button onClick={toggleTheme}>Alterar tema</button>
         <div className="content">
           <div className="left-header-div">
             <Link to="/">
