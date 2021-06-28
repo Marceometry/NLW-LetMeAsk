@@ -16,6 +16,7 @@ import { ToggleThemeButton } from '../components/ToggleThemeButton'
 
 import logoImg from '../assets/images/logo.svg'
 import dangerImg from '../assets/images/danger.svg'
+import checkImg from '../assets/images/check.svg'
 import emptyQuestionsImg from '../assets/images/empty-questions.svg'
 
 import '../css/room.scss'
@@ -26,6 +27,7 @@ type RoomParams = {
 
 export function AdminRoom() {
   const [isPermissionLoading, setIsPermissionLoading] = useState(true)
+  const [openRoomModalId, setOpenRoomModalId] = useState('')
   const [closeRoomModalId, setCloseRoomModalId] = useState('')
   const [deleteQuestionModalId, setDeleteQuestionModalId] = useState('')
   const [signOutModal, setSignOutModal] = useState('')
@@ -34,7 +36,8 @@ export function AdminRoom() {
   const history = useHistory()
   const params = useParams<RoomParams>()
   const roomId = params.id
-  const { questions, title, admin, isRoomLoading } = useRoom(roomId)
+  
+  const { questions, title, admin, isClosed, isRoomLoading } = useRoom(roomId)
   const { user, signOut } = useAuth()
   const { theme, toggleTheme } = useTheme()
 
@@ -67,6 +70,18 @@ export function AdminRoom() {
     signOut()
   }
 
+  async function handleOpenRoom() {
+    const closedRoom = database.ref(`rooms/${roomId}/closedAt`).remove()
+
+    await toast.promise(closedRoom, {
+      loading: 'Carregando...',
+      success: 'Sala aberta com sucesso :)',
+      error: 'Algo deu errado :,(',
+    })
+
+    setOpenRoomModalId('')
+  }
+
   async function handleCloseRoom() {
     const closedRoom = database.ref(`rooms/${roomId}`).update({
       closedAt: new Date()
@@ -78,7 +93,7 @@ export function AdminRoom() {
       error: 'Algo deu errado :,(',
     })
 
-    history.push("/")
+    setCloseRoomModalId('')
   }
 
   async function handleCheckQuestionAsAnswered(questionId: string, isAnswered: boolean) {
@@ -172,23 +187,48 @@ export function AdminRoom() {
 
           <div>
             <RoomCode code={roomId} />
-            <Button onClick={() => setCloseRoomModalId(roomId)} isOutlined>Encerrar sala</Button>
 
-            <CustomModal
-              isOpen={closeRoomModalId}
-              setIsOpen={setCloseRoomModalId}
-              contentLabel="Encerrar sala"
-            >
-              <img src={dangerImg} alt="Encerrar sala" />
+            {!isClosed ? (
+              <>
+              <Button onClick={() => setCloseRoomModalId(roomId)} isOutlined>Encerrar sala</Button>
 
-              <h2>Encerrar sala</h2>
-              <p>Tem certeza de que você deseja encerrar esta sala?</p>
+              <CustomModal
+                isOpen={closeRoomModalId}
+                setIsOpen={setCloseRoomModalId}
+                contentLabel="Encerrar sala"
+              >
+                <img src={dangerImg} alt="Encerrar sala" />
 
-              <div className="buttons">
-                <button onClick={() => setCloseRoomModalId('')}>Cancelar</button>
-                <button onClick={handleCloseRoom} className="confirm" >Encerrar</button>
-              </div>
-            </CustomModal>
+                <h2>Encerrar sala</h2>
+                <p>Tem certeza de que você deseja encerrar esta sala?</p>
+
+                <div className="buttons">
+                  <button onClick={() => setCloseRoomModalId('')}>Cancelar</button>
+                  <button onClick={handleCloseRoom} className="confirm" >Encerrar</button>
+                </div>
+              </CustomModal>
+              </>
+            ) : (
+              <>
+              <Button id="open-room" onClick={() => setOpenRoomModalId(roomId)} isOutlined>Abrir sala</Button>
+
+              <CustomModal
+                isOpen={openRoomModalId}
+                setIsOpen={setOpenRoomModalId}
+                contentLabel="Abrir sala"
+              >
+                <img src={checkImg} alt="Abrir sala" />
+
+                <h2>Abrir sala</h2>
+                <p>Tem certeza de que você deseja abrir esta sala?</p>
+
+                <div className="buttons">
+                  <button onClick={() => setOpenRoomModalId('')}>Cancelar</button>
+                  <button onClick={handleOpenRoom} className="confirm green" >Abrir</button>
+                </div>
+              </CustomModal>
+              </>
+            )}
           </div>
         </div>
       </header>

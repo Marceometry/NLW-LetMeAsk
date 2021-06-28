@@ -28,6 +28,12 @@
             color: #f4f0ff;
             border: 1px solid var(--red);
         }
+
+        &#open-room:not(:disabled):hover {
+            background: var(--green);
+            color: #f4f0ff;
+            border: 1px solid var(--green);
+        }
     }
 
     &:not(:disabled):hover {
