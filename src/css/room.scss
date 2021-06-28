@@ -115,6 +115,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                gap: .5rem;
 
                 .user-info {
                     span {
@@ -183,7 +184,7 @@
                     }
                 }
 
-                div:last-child {
+                > div:last-child {
                     flex-direction: column-reverse;
                     gap: 1rem;
                 }

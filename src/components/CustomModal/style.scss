@@ -14,17 +14,20 @@
 
 .ReactModal__Content {
     max-width: 95vw;
+    margin-right: -50% !important;
+    padding: 4rem 7.625rem !important;;
+
     top: 50% !important;
     left: 50% !important;
     right: auto !important;
     bottom: auto !important;
-    margin-right: -50% !important;
+
+    text-align: center;
     transform: translate(-50%, -50%) !important;
     border: none !important;
     border-radius: .5rem !important;
     background: var(--white) !important;
     
-    padding: 4rem 7.625rem !important;;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,5 +85,13 @@
                 }
             }
         }
+    }
+}
+
+// mobile
+
+@media(max-width: 768px) {
+    .ReactModal__Content {
+        padding: 2rem !important;
     }
 }
