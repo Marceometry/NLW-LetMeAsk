@@ -15,7 +15,7 @@
   <img alt="Project Mockup" src=".github/mockup.png" width="100%">
 </p>
 
-## 🚀 Tecnologias
+## 🧪 Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
@@ -30,7 +30,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 O LetMeAsk é um aplicativo para a realização de perguntas em tempo real durante lives, utilizando o [Firebase](https://firebase.google.com/) para autenticação e banco de dados, feito durante o evento `Next Level Week 6`, da [Rocketseat](https://github.com/rocketseat-education).
 
-## 🚀 Funcionalidades que adicionei além do evento
+## 💣 Funcionalidades que adicionei além do evento
 
 - Dark theme
 - Responsividade
@@ -47,10 +47,7 @@ Você pode visualizar o layout do projeto através [desse link](https://www.figm
 ## 🚀 Como executar
 
 - Clone o repositório
-- Crie um projeto no [Firebase](https://firebase.google.com/)
-- Na aba `Authentication`, ative a autenticação com o Google
-- Crie um banco de dados com o Realtime Database
-- Registre seu projeto como um app Web, na aba Visão Geral do Projeto
+- Crie um projeto no [Firebase](https://firebase.google.com/) e ative o banco de dados do Realtime Database
 - Preencha as variáveis ambiente com os dados do seu projeto, de acordo com o arquivo `.env.example`
 - Instale as dependências com `yarn`
 - Inicie o servidor com `yarn start`
