@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState, useEffect } from 'react'
+import { FormEvent, useRef, useState } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useRoom } from '../hooks/useRoom'
@@ -38,13 +38,6 @@ export function Room() {
   const { signInWithGoogle, signOut, user } = useAuth()
   const { theme, toggleTheme } = useTheme()
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [sidebarRef])
-
   if (isRoomLoading) return (
     <>
     <Header />
@@ -66,16 +59,8 @@ export function Room() {
     </>
   )
 
-  function handleSideBarStatus(status: boolean) {
-    setIsSideBarOpen(status)
-  }
-
-  function handleClickOutside(event: any) {
-    if (sidebarRef.current) {
-      if (!sidebarRef.current.contains(event.target)) {
-        setIsSideBarOpen(false)
-      }
-    }
+  function handleSideBarStatus() {
+    setIsSideBarOpen(!isSideBarOpen)
   }
 
   async function handleSignIn() {
@@ -202,15 +187,13 @@ export function Room() {
             <img src={logoImg} alt="LetMeAsk" />
           </Link>
 
-          {isSideBarOpen ? (
-            <button onClick={() => handleSideBarStatus(false)}>
+          <button onClick={handleSideBarStatus}>
+            {isSideBarOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+              ) : (
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 15h16v-2H4v2zm0 4h16v-2H4v2zm0-8h16V9H4v2zm0-6v2h16V5H4z"/></svg>
-            </button>
-          ) : (
-            <button onClick={() => handleSideBarStatus(true)}>
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 15h16v-2H4v2zm0 4h16v-2H4v2zm0-8h16V9H4v2zm0-6v2h16V5H4z"/></svg>
-            </button>
-          )}
+            )}
+          </button>
         </div>
       </header>
 

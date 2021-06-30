@@ -73,7 +73,9 @@
         margin: 0 auto;
 
         .mobile-sidebar {
-            display: none;
+            width: 100Vw;
+            background: var(--white);
+            position: absolute;
         }
 
         .room-header {
