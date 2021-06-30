@@ -190,7 +190,7 @@ export function AdminRoom() {
 
             {!isClosed ? (
               <>
-              <Button onClick={() => setCloseRoomModalId(roomId)} isOutlined>Encerrar sala</Button>
+              <Button id="close-room" onClick={() => setCloseRoomModalId(roomId)} isOutlined>Encerrar sala</Button>
 
               <CustomModal
                 isOpen={closeRoomModalId}

@@ -12,34 +12,38 @@
             align-items: center;
             justify-content: space-between;
 
+            &.mobile {
+                display: none;
+            }
+
             .left-header-div {
                 display: flex;
                 align-items: center;
+            }
 
-                button {
-                    font-size: 0;
+            button:not(#close-room) {
+                font-size: 0;
+
+                svg {
+                    width: 2rem;
+                    height: 2rem;
+                    fill: var(--black);
+                    transition: fill .2s;
+                }
+
+                &:hover svg {
+                    fill: var(--purple);
+                }
+                
+                &.sign-out-button:hover svg {
+                    fill: var(--red);
+                }
+
+                &:disabled {
+                    cursor: not-allowed;
 
                     svg {
-                        width: 2rem;
-                        height: 2rem;
-                        fill: var(--black);
-                        transition: fill .2s;
-                    }
-
-                    &:hover svg {
-                        fill: var(--purple);
-                    }
-                    
-                    &.sign-out-button:hover svg {
-                        fill: var(--red);
-                    }
-
-                    &:disabled {
-                        cursor: not-allowed;
-
-                        svg {
-                            fill: var(--gray-50)
-                        }
+                        fill: var(--gray-50)
                     }
                 }
             }
@@ -65,10 +69,15 @@
 
     main {
         max-width: 800px;
+        padding-top: 2rem;
         margin: 0 auto;
 
+        .mobile-sidebar {
+            display: none;
+        }
+
         .room-header {
-            margin: 2rem 0 1.5rem;
+            margin-bottom: 1.5rem;
             display: flex;
             flex-direction: column;
             gap: .5rem;
@@ -200,8 +209,11 @@
 @media(max-width: 600px) {
     #page-room {
         header .content {
-            flex-direction: column;
-            gap: 2rem;
+            display: none;
+
+            &.mobile {
+                display: flex;
+            }
         }
 
         .question-list > div {
