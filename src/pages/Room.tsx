@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from 'react'
+import { FormEvent, useRef, useState, useEffect } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useRoom } from '../hooks/useRoom'
@@ -18,7 +18,6 @@ import logoImg from '../assets/images/logo.svg'
 import emptyQuestionsImg from '../assets/images/empty-questions.svg'
 
 import '../css/room.scss'
-import { useEffect } from 'react'
 
 type RoomParams = {
   id: string
@@ -44,7 +43,7 @@ export function Room() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [isSideBarOpen])
+  }, [sidebarRef])
 
   if (isRoomLoading) return (
     <>
@@ -67,8 +66,8 @@ export function Room() {
     </>
   )
 
-  function handleSideBarStatus() {
-    setIsSideBarOpen(!isSideBarOpen)
+  function handleSideBarStatus(status: boolean) {
+    setIsSideBarOpen(status)
   }
 
   function handleClickOutside(event: any) {
@@ -203,9 +202,15 @@ export function Room() {
             <img src={logoImg} alt="LetMeAsk" />
           </Link>
 
-          <button onClick={handleSideBarStatus}>
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 15h16v-2H4v2zm0 4h16v-2H4v2zm0-8h16V9H4v2zm0-6v2h16V5H4z"/></svg>
-          </button>
+          {isSideBarOpen ? (
+            <button onClick={() => handleSideBarStatus(false)}>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 15h16v-2H4v2zm0 4h16v-2H4v2zm0-8h16V9H4v2zm0-6v2h16V5H4z"/></svg>
+            </button>
+          ) : (
+            <button onClick={() => handleSideBarStatus(true)}>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 15h16v-2H4v2zm0 4h16v-2H4v2zm0-8h16V9H4v2zm0-6v2h16V5H4z"/></svg>
+            </button>
+          )}
         </div>
       </header>
 
