@@ -12,6 +12,7 @@ import { Question } from '../components/Question'
 import { CustomModal } from '../components/CustomModal'
 import { UserInfo } from '../components/UserInfo'
 import { Header } from '../components/Header'
+import { BackToTopButton } from '../components/BackToTopButton'
 import { ToggleThemeButton } from '../components/ToggleThemeButton'
 
 import logoImg from '../assets/images/logo.svg'
@@ -143,6 +144,8 @@ export function AdminRoom() {
       <Toaster toastOptions={{
           className: 'hot-toasts'
       }} />
+      <BackToTopButton />
+
       <header>
         <div className="content">
           <div className="left-header-div">
