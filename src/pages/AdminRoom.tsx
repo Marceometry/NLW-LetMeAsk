@@ -254,9 +254,7 @@ export function AdminRoom() {
       </header>
 
       <main>
-        <aside className="mobile-sidebar" ref={sidebarRef} style={{
-          display: `${isSideBarOpen ? 'block' : 'none'}`
-        }}>
+        <aside className="mobile-sidebar" ref={sidebarRef} style={isSideBarOpen ? {transform: 'scaleY(1)'} : {}}>
           <ul>
             <li>
               <ToggleThemeButton className="li-button" currentTheme={theme} onClick={toggleTheme}>Alterar tema</ToggleThemeButton>
@@ -307,7 +305,7 @@ export function AdminRoom() {
             )}
             {!isClosed ? (
               <li>
-                <Button id="close-room" onClick={() => setCloseRoomModalId(roomId)} isOutlined>Encerrar sala</Button>
+                <Button id="close-room-mobile" onClick={() => setCloseRoomModalId(roomId)}>Encerrar sala</Button>
 
                 <CustomModal
                   isOpen={closeRoomModalId}

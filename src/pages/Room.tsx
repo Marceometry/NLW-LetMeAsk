@@ -198,9 +198,7 @@ export function Room() {
       </header>
 
       <main>
-        <aside className="mobile-sidebar" ref={sidebarRef} style={{
-          display: `${isSideBarOpen ? 'block' : 'none'}`
-        }}>
+        <aside className="mobile-sidebar" ref={sidebarRef} style={isSideBarOpen ? {transform: 'scaleY(1)'} : {}}>
           <ul>
             <li>
               <ToggleThemeButton currentTheme={theme} onClick={toggleTheme}>Alterar tema</ToggleThemeButton>

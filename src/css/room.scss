@@ -75,8 +75,13 @@
             width: 100Vw;
             padding: 0 0 1rem;
             background: var(--white);
+            display: none;
             position: absolute;
             left: 0;
+        
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform .2s;
 
             ul {
                 list-style: none;
@@ -89,11 +94,13 @@
                         padding: 1.5rem;
                     }
 
-                    button.button {
-                        width: 100%;
+                    #close-room-mobile {
+                        background: var(--red);
+                        border-radius: 0;
+                        z-index: 0;
                     }
 
-                    button.li-button {
+                    button:not(.room-code) {
                         width: 100%;
                         padding: 1.5rem 3rem;
                         display: flex;
@@ -266,6 +273,12 @@
 
             &.mobile {
                 display: flex;
+            }
+        }
+
+        main {
+            .mobile-sidebar {
+                display: initial;
             }
         }
 
