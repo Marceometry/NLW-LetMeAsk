@@ -1,5 +1,5 @@
 import { Link, useHistory, useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { database } from '../services/firebase'
 import { useAuth } from '../contexts/AuthContext'
 import { useRoom } from '../hooks/useRoom'
@@ -27,6 +27,7 @@ type RoomParams = {
 
 export function AdminRoom() {
   const [isPermissionLoading, setIsPermissionLoading] = useState(true)
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false)
   const [openRoomModalId, setOpenRoomModalId] = useState('')
   const [closeRoomModalId, setCloseRoomModalId] = useState('')
   const [deleteQuestionModalId, setDeleteQuestionModalId] = useState('')
@@ -34,6 +35,7 @@ export function AdminRoom() {
   const [enterAsUserModal, setEnterAsUserModal] = useState('')
   
   const history = useHistory()
+  const sidebarRef = useRef<HTMLElement>(null)
   const params = useParams<RoomParams>()
   const roomId = params.id
   
@@ -61,6 +63,10 @@ export function AdminRoom() {
     <div className="loaderContainer"><div className="loader"></div></div>
     </>
   )
+
+  function handleSideBarStatus() {
+    setIsSideBarOpen(!isSideBarOpen)
+  }
 
   function handleEnterAsCommonUser() {
     history.push(`/rooms/${roomId}`)
@@ -146,7 +152,7 @@ export function AdminRoom() {
 
             <ToggleThemeButton currentTheme={theme} onClick={toggleTheme} />
 
-            <button aria-label="Entrar como usuário comum" title="Entrar como usuário comum" disabled={!user} onClick={() => setEnterAsUserModal('1')}>
+            <button aria-label="Sair do modo de administrador" title="Sair do modo de administrador" disabled={!user} onClick={() => setEnterAsUserModal('1')}>
               <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24" /></g><g><g><path d="M17,11c0.34,0,0.67,0.04,1,0.09V6.27L10.5,3L3,6.27v4.91c0,4.54,3.2,8.79,7.5,9.82c0.55-0.13,1.08-0.32,1.6-0.55 C11.41,19.47,11,18.28,11,17C11,13.69,13.69,11,17,11z" /><path d="M17,13c-2.21,0-4,1.79-4,4c0,2.21,1.79,4,4,4s4-1.79,4-4C21,14.79,19.21,13,17,13z M17,14.38c0.62,0,1.12,0.51,1.12,1.12 s-0.51,1.12-1.12,1.12s-1.12-0.51-1.12-1.12S16.38,14.38,17,14.38z M17,19.75c-0.93,0-1.74-0.46-2.24-1.17 c0.05-0.72,1.51-1.08,2.24-1.08s2.19,0.36,2.24,1.08C18.74,19.29,17.93,19.75,17,19.75z" /></g></g></svg>
             </button>
             <CustomModal
@@ -231,9 +237,121 @@ export function AdminRoom() {
             )}
           </div>
         </div>
+      
+        <div className="content mobile">
+          <Link to="/">
+            <img src={logoImg} alt="LetMeAsk" />
+          </Link>
+
+          <button onClick={handleSideBarStatus}>
+            {isSideBarOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+              ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 15h16v-2H4v2zm0 4h16v-2H4v2zm0-8h16V9H4v2zm0-6v2h16V5H4z"/></svg>
+            )}
+          </button>
+        </div>
       </header>
 
       <main>
+        <aside className="mobile-sidebar" ref={sidebarRef} style={{
+          display: `${isSideBarOpen ? 'block' : 'none'}`
+        }}>
+          <ul>
+            <li>
+              <ToggleThemeButton className="li-button" currentTheme={theme} onClick={toggleTheme}>Alterar tema</ToggleThemeButton>
+            </li>
+            <li>
+              <button className="li-button" aria-label="Sair do modo de administrador" title="Sair do modo de administrador" disabled={!user} onClick={() => setEnterAsUserModal('1')}>
+                <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24" /></g><g><g><path d="M17,11c0.34,0,0.67,0.04,1,0.09V6.27L10.5,3L3,6.27v4.91c0,4.54,3.2,8.79,7.5,9.82c0.55-0.13,1.08-0.32,1.6-0.55 C11.41,19.47,11,18.28,11,17C11,13.69,13.69,11,17,11z" /><path d="M17,13c-2.21,0-4,1.79-4,4c0,2.21,1.79,4,4,4s4-1.79,4-4C21,14.79,19.21,13,17,13z M17,14.38c0.62,0,1.12,0.51,1.12,1.12 s-0.51,1.12-1.12,1.12s-1.12-0.51-1.12-1.12S16.38,14.38,17,14.38z M17,19.75c-0.93,0-1.74-0.46-2.24-1.17 c0.05-0.72,1.51-1.08,2.24-1.08s2.19,0.36,2.24,1.08C18.74,19.29,17.93,19.75,17,19.75z" /></g></g></svg>
+                Sair do modo de administrador
+              </button>
+              <CustomModal
+                isOpen={enterAsUserModal}
+                setIsOpen={setEnterAsUserModal}
+                contentLabel="Sair do modo de administrador"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none" /><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" /></svg>
+          
+                <h2>Sair do modo de administrador</h2>
+                <p>Tem certeza de que você deseja sair do modo de administrador?</p>
+          
+                <div className="buttons">
+                  <button onClick={() => setEnterAsUserModal('')}>Cancelar</button>
+                  <button onClick={handleEnterAsCommonUser} className="confirm" >Sair</button>
+                </div>
+              </CustomModal>
+            </li>
+            {user && (
+              <li>
+                <button aria-label="Deslogar" title="Deslogar" className="sign-out-button li-button" onClick={() => setSignOutModal('1')}>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none" /><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" /></svg>
+                  Deslogar
+                </button>
+                <CustomModal
+                  isOpen={signOutModal}
+                  setIsOpen={setSignOutModal}
+                  contentLabel="Deslogar"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none" /><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" /></svg>
+
+                  <h2>Deslogar</h2>
+                  <p>Tem certeza de que você deseja se deslogar agora?</p>
+
+                  <div className="buttons">
+                      <button onClick={() => setSignOutModal('')}>Cancelar</button>
+                      <button onClick={handleSignOut} className="confirm" >Deslogar</button>
+                  </div>
+                </CustomModal>
+              </li>
+            )}
+            {!isClosed ? (
+              <li>
+                <Button id="close-room" onClick={() => setCloseRoomModalId(roomId)} isOutlined>Encerrar sala</Button>
+
+                <CustomModal
+                  isOpen={closeRoomModalId}
+                  setIsOpen={setCloseRoomModalId}
+                  contentLabel="Encerrar sala"
+                >
+                  <img src={dangerImg} alt="Encerrar sala" />
+
+                  <h2>Encerrar sala</h2>
+                  <p>Tem certeza de que você deseja encerrar esta sala?</p>
+
+                  <div className="buttons">
+                    <button onClick={() => setCloseRoomModalId('')}>Cancelar</button>
+                    <button onClick={handleCloseRoom} className="confirm" >Encerrar</button>
+                  </div>
+                </CustomModal>
+              </li>
+            ) : (
+              <li>
+                <Button id="open-room" onClick={() => setOpenRoomModalId(roomId)} isOutlined>Abrir sala</Button>
+
+                <CustomModal
+                  isOpen={openRoomModalId}
+                  setIsOpen={setOpenRoomModalId}
+                  contentLabel="Abrir sala"
+                >
+                  <img src={checkImg} alt="Abrir sala" />
+
+                  <h2>Abrir sala</h2>
+                  <p>Tem certeza de que você deseja abrir esta sala?</p>
+
+                  <div className="buttons">
+                    <button onClick={() => setOpenRoomModalId('')}>Cancelar</button>
+                    <button onClick={handleOpenRoom} className="confirm green" >Abrir</button>
+                  </div>
+                </CustomModal>
+              </li>
+            )}
+            <li>
+              <RoomCode code={roomId} />
+            </li>
+          </ul>
+        </aside>
+        
         <div className="room-header">
           <h1>Sala: {title}</h1>
 

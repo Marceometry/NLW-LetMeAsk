@@ -60,7 +60,6 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
         root.setProperty('--gray-25', '#737380')
         root.setProperty('--gray-50', '#a8a8b3')
         root.setProperty('--gray-100', '#cccdce')
-        root.setProperty('--gray-100', '#DBDCDD')
         root.setProperty('--gray-200', '#fefefe')
         root.setProperty('--background', '#f8f8f8')
         root.setProperty('--answered', '#DBDCDD')
